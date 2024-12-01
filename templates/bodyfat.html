@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Fat Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .fat-percentage-calculator {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    label, select, input, button {
+      margin: 10px 0;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 3vw;
+    }
+    input[type="number"]#height {
+      font-size: 4vw;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #fatResult, #dietPlan {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      .fat-percentage-calculator {
+        padding: 15px;
+        width: 95%; 
+      }
+      label, select, input, button {
+        font-size: 4vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .fat-percentage-calculator {
+        padding: 10px;
+        width: 100%;
+      }
+      label, select, input, button {
+        font-size: 5vw;
+      }
+      button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="fat-percentage-calculator">
+    <h2>Body Fat Percentage Calculator</h2>
+    <form id="fatForm" onsubmit="event.preventDefault(); calculateFat();">
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <label for="height">Height (cm):</label>
+      <input type="number" id="height" name="height" required>
+
+      <label for="neck">Neck Circumference (cm):</label>
+      <input type="number" id="neck" name="neck" required>
+
+      <label for="waist">Waist Circumference (cm):</label>
+      <input type="number" id="waist" name="waist" required>
+
+      <label for="hip" id="hipLabel" style="display: none;">Hip Circumference (cm):</label>
+      <input type="number" id="hip" name="hip" style="display: none;">
+
+      <button type="submit">Calculate Body Fat Percentage</button>
+    </form>
+    <p id="fatResult"></p>
+    <p id="dietPlan"></p>
+  </div>
+
+  <script>
+    document.getElementById('gender').addEventListener('change', function () {
+      const gender = document.getElementById('gender').value;
+      const hipLabel = document.getElementById('hipLabel');
+      const hipInput = document.getElementById('hip');
+      if (gender === 'female') {
+        hipLabel.style.display = 'block';
+        hipInput.style.display = 'block';
+      } else {
+        hipLabel.style.display = 'none';
+        hipInput.style.display = 'none';
+      }
+    });
+
+    async function calculateFat() {
+      const gender = document.getElementById('gender').value;
+      const height = parseFloat(document.getElementById('height').value);
+      const neck = parseFloat(document.getElementById('neck').value);
+      const waist = parseFloat(document.getElementById('waist').value);
+      const hip = gender === "female" ? parseFloat(document.getElementById('hip').value) : 0;
+
+      let bodyFatPercentage = 0;
+      
+      // Validate inputs before calculating
+      if (!height || !neck || !waist || (gender === "female" && !hip)) {
+        alert("Please enter all the required values.");
+        return;
+      }
+
+      if (gender === 'male') {
+        // Navy Formula for Men
+        bodyFatPercentage = 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
+      } else if (gender === 'female') {
+        // Navy Formula for Women
+        bodyFatPercentage = 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
+      }
+
+      const result = {
+        body_fat_percentage: bodyFatPercentage.toFixed(1),  // Round to 1 decimal
+        fat_category: getFatCategory(bodyFatPercentage)  // Fat category based on body fat percentage
+      };
+
+      document.getElementById('fatResult').innerText = `Your Body Fat Percentage is ${result.body_fat_percentage}% (${result.fat_category}).`;
+
+      // Provide the diet plan based on the result
+      let dietPlan = '';
+      if (result.body_fat_percentage < 15) {
+        dietPlan = 'Recommended Diet for Fat Loss: High Protein, Low Carb, Moderate Fat. Include lean meats, fish, eggs, and vegetables.';
+      } else if (result.body_fat_percentage >= 15 && result.body_fat_percentage <= 20) {
+        dietPlan = 'Recommended Diet for Muscle Gain: Moderate Protein, High Carb, Moderate Fat. Include whole grains, lean meats, and healthy fats.';
+      } else {
+        dietPlan = 'Recommended Diet for General Fitness: Balanced Protein, Carbs, and Healthy Fats. Include fruits, vegetables, nuts, and lean meats.';
+      }
+
+      document.getElementById('dietPlan').innerHTML = `<strong>Recommended Diet:</strong> ${dietPlan}`;
+    }
+
+    // Helper function to determine the fat category
+    function getFatCategory(bodyFatPercentage) {
+      if (bodyFatPercentage < 6) {
+        return "Essential Fat"; // Essential Fat
+      } else if (bodyFatPercentage >= 6 && bodyFatPercentage <= 13) {
+        return "Athletes"; // Athletes
+      } else if (bodyFatPercentage >= 14 && bodyFatPercentage <= 24) {
+        return "Fitness"; // Fitness
+      } else if (bodyFatPercentage >= 25 && bodyFatPercentage <= 31) {
+        return "Average"; // Average
+      } else {
+        return "Obese"; // Obese
+      }
+    }
+  </script>
+</body>
+</html>

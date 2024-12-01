@@ -1,0 +1,17 @@
+firebase-auth.json
+.env
+firebase-auth.json
+firebase-database.json
+firebase-accessories.json
+firebase_config.py
+config.js
+config1.js
+*.env
+__pycache__/
+node_modules/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+upload_model.py
+Thumbs.db

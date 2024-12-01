@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Trainers</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            padding: 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-bar input, .filter-bar select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-bar button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filter-bar button:hover {
+            background: #0056b3;
+        }
+
+        .trainers-list {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .trainer-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .trainer-card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+
+        .pagination a.active {
+            background: #007bff;
+            color: white;
+        }
+
+        .pagination a:hover {
+            background: #0056b3;
+            color: white;
+        }
+        @media (max-width: 768px) {
+        .trainers-list {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .filter-bar {
+            flex-direction: column;
+        }
+    }
+
+    /* Media query for laptops */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .trainers-list {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    }
+
+    /* Media query for larger screens */
+    @media (min-width: 1025px) {
+        .trainers-list {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Trainer List</h1>
+    </header>
+
+    <!-- Filter Bar -->
+    <form class="filter-bar" id="filterForm" method="GET" action="/view_trainers">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="country" placeholder="Country">
+        <input type="text" name="city" placeholder="City">
+        <input type="text" name="language" placeholder="Language (e.g., English)">
+        <input type="number" name="min_experience" placeholder="Min Experience">
+        <input type="number" name="max_experience" placeholder="Max Experience">
+        <input type="number" name="min_price" step="0.01" placeholder="Min Price">
+        <input type="number" name="max_price" step="0.01" placeholder="Max Price">
+        <input type="text" name="timing" placeholder="Timing">
+        <input type="number" name="rating" placeholder="Min Rating">
+        <button type="submit">Apply Filters</button>
+    </form>
+    <!-- Trainers List -->
+    <div class="trainers-list">
+        {% for trainer in trainers %}
+            <div class="trainer-card">
+                <img src="{{ trainer.photo_url }}" alt="{{ trainer.name }}">
+                <h3>{{ trainer.name }}</h3>
+                <p>Country: {{ trainer.country }}</p>
+                <p>City: {{ trainer.city }}</p>
+                <p>Language: {{ trainer.language }}</p>
+                <p>Experience: {{ trainer.experience }} years</p>
+                <p>Price: ${{ trainer.price }}</p>
+                <p>Timing: {{ trainer.timing }}</p>
+                <p>Rating: {{ trainer.rating }}</p>
+                <p>contact:{{trainer.contact}}</p>
+                <p><a href="{{ trainer.instagram }}" target="_blank">Instagram</a></p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if prev_page %}
+            <a href="{{ url_for('view_trainers', page=prev_page) }}">&laquo; Previous</a>
+        {% endif %}
+        {% for page_num in pages %}
+            <a href="{{ url_for('view_trainers', page=page_num) }}" 
+               class="{{ 'active' if page_num == current_page else '' }}">{{ page_num }}</a>
+        {% endfor %}
+        {% if next_page %}
+            <a href="{{ url_for('view_trainers', page=next_page) }}">Next &raquo;</a>
+        {% endif %}
+    </div>
+</body>
+</html>

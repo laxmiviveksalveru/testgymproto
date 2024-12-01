@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Diet Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: #222;
+            color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5vw;
+        }
+
+        #controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #search-bar {
+            padding: 10px;
+            font-size: 1.2rem;
+            width: 60%;
+            max-width: 400px;
+        }
+
+        #toggle-theme {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .category {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode .category {
+            background-color: #333;
+        }
+
+        .category-title {
+            font-weight: bold;
+            font-size: 1.5vw;
+            cursor: pointer;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .items {
+            margin-left: 20px;
+            display: none;
+        }
+
+        .items .item {
+            font-size: 1.2vw;
+            padding: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .items .item:hover {
+            background-color: #e0e0e0;
+        }
+
+        .dark-mode .items .item:hover {
+            background-color: #444;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 5vw;
+            }
+
+            .category-title {
+                font-size: 4vw;
+            }
+
+            .items .item {
+                font-size: 3.5vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 6vw;
+            }
+
+            .category-title {
+                font-size: 5vw;
+            }
+
+            .items .item {
+                font-size: 4.5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Diet Plan</h1>
+
+    <div id="controls">
+        <input type="text" id="search-bar" placeholder="Search for food items...">
+        <button id="toggle-theme">Switch to Dark Mode</button>
+    </div>
+
+    <div id="diet-list">
+        <!-- Animal-Based Protein Sources -->
+        <div class="category">
+            <h2 class="category-title">
+                Animal-Based Protein Sources
+                <span>+</span>
+            </h2>
+            <div class="items">
+                <div class="item">Egg (1 large): Protein %: 35%, Protein per Serving: 6g</div>
+                <div class="item">Chicken Breast (100g): Protein %: 31%, Protein per Serving: 31g</div>
+                <div class="item">Cottage Cheese (1/2 cup, 113g): Protein %: 20%, Protein per Serving: 14g</div>
+                <div class="item">Greek Yogurt (1 cup, 245g): Protein %: 12%, Protein per Serving: 10–20g</div>
+                <div class="item">Milk (1 cup, 240mL): Protein %: 8%, Protein per Serving: 8g</div>
+                <div class="item">Tuna (canned, 100g): Protein %: 29%, Protein per Serving: 29g</div>
+                <div class="item">Fish (e.g., Salmon, 100g): Protein %: 20%, Protein per Serving: 20–22g</div>
+                <div class="item">Shrimp (100g): Protein %: 24%, Protein per Serving: 24g</div>
+            </div>
+        </div>
+
+        <!-- Vegan/Plant-Based Protein Sources -->
+        <div class="category">
+            <h2 class="category-title">
+                Vegan/Plant-Based Protein Sources
+                <span>+</span>
+            </h2>
+            <div class="items">
+                <div class="item">Buckwheat (1 cup cooked): Protein %: ~15%, Protein per Serving: 6g</div>
+                <div class="item">Soy Products (Tofu, 100g): Protein %: 14%, Protein per Serving: 10–15g</div>
+                <div class="item">Quinoa (1 cup cooked): Protein %: 15%, Protein per Serving: 8g</div>
+                <div class="item">Chia Seeds (2 tbsp): Protein %: ~16%, Protein per Serving: 4g</div>
+            </div>
+        </div>
+
+        <!-- Carbohydrates -->
+        <div class="category">
+            <h2 class="category-title">
+                Carbohydrates
+                <span>+</span>
+            </h2>
+            <div class="items">
+                <div class="item">Sweet Potatoes (1 medium, 130g): Carbs %: 20%, Carbs per Serving: 27g</div>
+                <div class="item">Brown Rice (1 cup cooked, 195g): Carbs %: 45%, Carbs per Serving: 45g</div>
+                <div class="item">Oats (1 cup cooked): Carbs %: 27%, Carbs per Serving: 27g</div>
+                <div class="item">Whole Wheat Bread (1 slice): Carbs %: 13%, Carbs per Serving: 12g</div>
+                <div class="item">Banana (1 medium): Carbs %: 22%, Carbs per Serving: 27g</div>
+            </div>
+        </div>
+
+        <!-- Fiber -->
+        <div class="category">
+            <h2 class="category-title">
+                Fiber
+                <span>+</span>
+            </h2>
+            <div class="items">
+                <div class="item">Broccoli (1 cup cooked): Fiber %: 10%, Fiber per Serving: 5g</div>
+                <div class="item">Chia Seeds (2 tbsp): Fiber %: 40%, Fiber per Serving: 10g</div>
+                <div class="item">Flaxseeds (2 tbsp): Fiber %: 27%, Fiber per Serving: 6g</div>
+                <div class="item">Avocados (1 medium): Fiber %: 25%, Fiber per Serving: 10g</div>
+                <div class="item">Apples (1 medium): Fiber %: 17%, Fiber per Serving: 4g</div>
+            </div>
+        </div>
+
+        <!-- Essential Vitamins -->
+        <div class="category">
+            <h2 class="category-title">
+                Essential Vitamins
+                <span>+</span>
+            </h2>
+            <div class="items">
+                <div class="item">Spinach (1 cup cooked): Vitamin A %: 56%, Vitamin C %: 47%</div>
+                <div class="item">Carrots (1 medium): Vitamin A %: 184%, Vitamin C %: 7%</div>
+                <div class="item">Oranges (1 medium): Vitamin C %: 116%</div>
+                <div class="item">Almonds (28g): Vitamin E %: 37%</div>
+                <div class="item">Kale (1 cup cooked): Vitamin K %: 1060%</div>
+            </div>
+        </div>
+
+        <!-- Other Essential Foods -->
+        <div class="category">
+            <h2 class="category-title">
+                Other Essential Foods
+                <span>+</span>
+            </h2>
+            <div class="items">
+                <div class="item">Olive Oil (1 tbsp): Fat %: 100%, Fat per Serving: 14g</div>
+                <div class="item">Chia Seeds (2 tbsp): Omega-3 %: 50%, Omega-3 per Serving: 4g</div>
+                <div class="item">Almonds (28g): Fat %: 50%, Fat per Serving: 14g</div>
+                <div class="item">Coconut Oil (1 tbsp): Fat %: 100%, Fat per Serving: 14g</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search Functionality
+        const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('input', function () {
+            const query = searchBar.value.toLowerCase();
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                if (item.textContent.toLowerCase().includes(query)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Expandable Categories
+        const categories = document.querySelectorAll('.category');
+        categories.forEach(category => {
+            const title = category.querySelector('.category-title');
+            const items = category.querySelector('.items');
+            title.addEventListener('click', () => {
+                items.style.display = items.style.display === 'block' ? 'none' : 'block';
+                title.querySelector('span').textContent = items.style.display === 'block' ? '-' : '+';
+            });
+        });
+
+        // Dark/Light Mode Toggle
+        const toggleButton = document.getElementById('toggle-theme');
+        toggleButton.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            toggleButton.textContent = document.body.classList.contains('dark-mode')
+                ? 'Switch to Light Mode'
+                : 'Switch to Dark Mode';
+        });
+    </script>
+</body>
+</html>

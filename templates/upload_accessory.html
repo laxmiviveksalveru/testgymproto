@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Accessory</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <section id="upload-accessory">
+        <h2>Upload a New Accessory</h2>
+        <form action="/upload_accessory" method="POST" enctype="multipart/form-data">
+            <label for="name">Accessory Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br>
+
+            <label for="link">Product Link:</label>
+            <input type="url" id="link" name="link" required><br>
+
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required><br>
+
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+</body>
+</html>

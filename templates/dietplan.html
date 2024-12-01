@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Plan Generator</title>
+   
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 30px;
+        background-color: white;
+        
+    }
+    
+    h1, h2, h3 {
+        color: #333;
+    }
+    
+    form select {
+        padding: 10px;
+        font-size: 16px;
+        width: 200px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    ul {
+        text-align: left;
+        list-style: none;
+        padding: 0;
+    }
+    
+    ul li {
+        margin: 10px 0;
+    }
+    
+    a {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #4CAF50;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Your Professional Athlete-Level Diet Plan</h1>
+        <form action="/dietplan" method="POST">
+            <label for="goal">Select your Goal:</label>
+            <select id="goal" name="goal">
+                <option value="fat_loss">Fat Loss</option>
+                <option value="muscle_gain">Muscle Gain</option>
+                <option value="performance">Performance</option>
+                <option value="recovery">Recovery</option>
+            </select><br><br>
+            <button type="submit">Generate Plan</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+   
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        .result-card {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 1.5em;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card p {
+            margin: 0.5em 0;
+        }
+
+        .result-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .result-card ul li {
+            margin: 0.5em 0;
+        }
+
+        .result-card ul li a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .result-card ul li a:hover {
+            text-decoration: underline;
+        }
+
+        iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9; /* Ensures proper aspect ratio */
+            border: none;
+            border-radius: 8px;
+            margin-top: 1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            margin-top: 2em;
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .result-card {
+                margin: 1em;
+                padding: 1em;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            iframe {
+                aspect-ratio: 4 / 3; /* Adjusted aspect ratio for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prediction Result</h1>
+    </header>
+    <div class="result-card">
+        <p><strong>Predicted Class:</strong> {{ predicted_class }}</p>
+        <p><strong>Confidence:</strong> {{ confidence }}</p>
+
+        <h2>Muscles Trained:</h2>
+        <ul>
+            {% for muscle in muscles %}
+                <li>{{ muscle }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Related Tutorials:</h2>
+        <ul>
+            {% for title, tutorial_link in tutorials.items() %}
+                <li>
+                    <a href="#" 
+                       data-tutorial="{{ tutorial_link }}" 
+                       onclick="playVideo(this)">{{ title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Add iframe for video playback -->
+        <iframe 
+            id="videoPlayer" 
+            src="" 
+            title="YouTube video player" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Gym Equipment Classifier. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function playVideo(linkElement) {
+            const rawUrl = linkElement.getAttribute("data-tutorial");
+            let videoId = "";
+
+            // Parse YouTube video ID from the link
+            if (rawUrl.includes("watch?v=")) {
+                videoId = rawUrl.split("watch?v=")[1].split("&")[0];
+            } else if (rawUrl.includes("youtu.be/")) {
+                videoId = rawUrl.split("youtu.be/")[1].split("?")[0];
+            }
+
+            // Update iframe src to embed the video
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            const videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = embedUrl;
+        }
+    </script>
+</body>
+</html>

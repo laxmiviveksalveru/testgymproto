@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commonstyle.css') }}" >
+
+  <title>12RepsClub</title>
+
+
+  </head>
+
+  <body>
+
+    {% include 'navbar_public.html' %}
+    <div class="content">
+      <section id="home" class="main-banner">
+        <h1>Welcome to 12RepsClub: Simplifying Fitness</h1>
+        <div class="content-wrapper">
+          <div class="text-content">
+            <p>Discover a world where fitness meets simplicity. At 12RepsClub, we are dedicated to providing you with easy-to-follow training solutions. From the basics to advanced workouts, our platform covers it all with detailed instructions and video tutorials tailored for each machine.</p>
+            <p style="margin: 0;">
+              Browse through our extensive catalog of gym equipment and learn about their targeted muscle groups. Ready to step up your fitness game? Let 12RepsClub guide you through a journey of strength and health.
+          </p> 
+          
+          <a href="{{ url_for('login') }}" style="
+              display: inline-block;
+              color: #000000; 
+              background-color:#f97316;
+              border-radius: 4px; 
+              padding: 10px 20px; 
+              margin-top: 10px;
+              text-decoration: none;
+          ">Watch demo</a>
+
+          
+        
+          </div>
+          <div class="image-content">
+            <img src="{{ url_for('static', filename='images/background5.jpg') }}" alt="Gym Equipment Image">
+          </div>
+        </div>
+      </section>
+  
+      <section id="classifier" class="classifier-banner">
+        <h2>Upload an Image of Gym Equipment</h2>
+        <img class="classifier-img" src="{{ url_for('static', filename='images/myimage5.png') }}" alt="Exercise Tutorial">
+        <form action="/predict" method="post" enctype="multipart/form-data">
+          <input type="file" name="file" accept="image/*" required>
+          <button type="submit" class="button">Classify Equipment</button>
+        </form>
+      </section>
+    </div>
+    <section id="services">
+      <h2>Our Services<span style=color:#62EEA8>(Please login to use all services)</span></h2>
+      <div id="services-container">
+        <div class="service-box">
+          <h3>Manual Exercise Tutorials</h3>
+          <img class="service-img" src="{{ url_for('static', filename='images/freepik__candid-image-photography-natural-textures-highly-r__22633.jpeg') }}" alt="Exercise Tutorial">
+          <p>Get targeted exercise tutorials for your equipment.</p>
+        </div>
+        <div class="service-box">
+          <h3>Shop Gym Accessories</h3>
+          <img class="service-img" src="{{ url_for('static', filename='images/Screenshot 2024-10-17 115628.png') }}" alt="Gym Accessories">
+          <p>Explore our gym gear and accessories.</p>
+        </div>
+        <div class="service-box">
+          <h3>Online & Home Trainer Booking</h3>
+          <img class="service-img" src="{{ url_for('static', filename='images/Vivek_Salve_proffesional__male_and_female_gym_personal_trainer_6c424710-11c3-4639-b682-1118a37bad3d.png') }}" alt="Trainer Booking">
+          <p>Book a professional trainer for home-based training.</p>
+          <button type="button">View Trainers</button>
+          <button type="button">Upload Trainer</button>
+        </div>
+        <div class="service-box">
+          <h3>Most Effective Diet Plan & BMI</h3>
+          <img class="service-img" src="{{ url_for('static', filename='images/Screenshot 2024-10-17 113316.png') }}" alt="Diet Plan">
+          <p>Get our most effective diet plan designed by our nutritionist. Feed your body with nutritious food.</p>
+        </div>
+      </div>
+    </section>
+   
+    <section id="accessories">
+      <h2>Recommended Accessories</h2>
+      <div id="services-container">
+          {% if accessories %}
+              {% for accessory in accessories %}
+                  <div class="service-box">
+                      <div class="image-container">
+                          <img class="diet-img" src="{{ accessory.image_url }}" alt="{{ accessory.name }}">
+                      </div>
+                      <h3>{{ accessory.name }} ({{ accessory.price|safe }})</h3>
+                      <p>{{ accessory.description }}</p>
+                      <a href="{{ accessory.link }}">Buy Now</a>
+                  </div>
+              {% endfor %}
+          {% else %}
+              <p>No accessories available.</p>
+          {% endif %}
+      </div>
+      <a style="display: block; margin-top: 20px; text-align: center;">See More Accessories</a>
+      <a style="display: block; margin-top: 3px; color:red;">NOTE: Upon clicking 'Buy Now,' you will be redirected to the corresponding product page on platforms like Amazon, Flipkart, and others.</a>
+  </section>
+  
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form action="/send_message" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+    {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='scripts.js') }}" type="module"></script>
+  </body>
+
+</html>

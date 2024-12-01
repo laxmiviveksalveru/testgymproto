@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ goal.capitalize() }} Diet Plan</title>
+<style>body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 30px;
+        background-color: white;
+    }
+    
+    h1, h2, h3 {
+        color: #333;
+    }
+    
+    form select {
+        padding: 10px;
+        font-size: 16px;
+        width: 200px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    ul {
+        text-align: left;
+        list-style: none;
+        padding: 0;
+    }
+    
+    ul li {
+        margin: 10px 0;
+    }
+    a {
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            padding: 1vh 3vw;
+            font-size: 2vw;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        a:active {
+            background-color: #003f7f;
+            transform: translateY(0);
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            a {
+                font-size: 4vw;
+                padding: 2vh 4vw;
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            a {
+                font-size: 5vw;
+                padding: 2.5vh 5vw;
+                border-radius: 5px;
+            }
+        }
+   
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your {{ goal.capitalize() }} Diet Plan</h1><h1>Try to include these in your  diet</h1>
+        <h2>Macronutrient Split: {{ plan['macros'] }}</h2>
+        <h3>Sample Meal Plan:</h3>
+        <ul>
+            {% for meal, description in plan['meals'].items() %}
+                <li><strong>{{ meal }}:</strong> {{ description }}</li>
+            {% endfor %}
+            {% for protein, x in plan['protein'].items() %}
+                <li><strong>{{protein }}:</strong> {{ x }}</li>
+            {% endfor %}
+            <li style="color:red">Please note: This diet plan is for general reference only. If you are pregnant, have specific health issues, or dietary restrictions, consult a certified nutritionist before making significant changes to your diet.</li>
+        </ul>
+        <a href="/diet_list">diet plan</a>
+        
+        <a href="/dashboard">Go back</a>
+    </div>
+</body>
+</html>
